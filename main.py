@@ -4,17 +4,17 @@ import argparse
 from ultralytics import YOLO
 from tracker import*
 
-# Initialize model and tracker
-model = YOLO('Best.pt')
-tracker = Tracker()
-
-class_names = ["Motorcycle", "Car", "Bus", "Truck", "background"]
-
 # Argument parsing
 parser = argparse.ArgumentParser(description="Vehicle Counter with YOLO")
 parser.add_argument("--input", type=str, default="0", help="Path to input video or '0' for webcam")
 parser.add_argument("--output", type=str, default="output.mp4", help="Path to save output video")
+parser.add_argument("--model_path", type=str, required=True, help="Path to the YOLO model file")
 args = parser.parse_args()
+
+# Initialize model and tracker
+model = YOLO(args.model_path)
+tracker = Tracker()
+class_names = ["Motorcycle", "Car", "Bus", "Truck", "background"]
 
 # Open video or webcam
 if args.input.isdigit():
@@ -87,18 +87,18 @@ while True:
         text = f'{cls}: {len(ids)}'
         (text_width, text_height), _ = cv2.getTextSize(text, cv2.FONT_HERSHEY_SIMPLEX, 0.5, 1)
     
-        # Tentukan posisi rectangle dan teks
+        # Determine the position of the rectangle and text
         x_position, y_position = 30, y_position
         rect_start = (x_position - 5, y_position - text_height - 5)  # Margin kecil
         rect_end = (x_position + text_width + 5, y_position + 5)
 
-        # Buat overlay dan tambahkan rectangle putih dengan opacity 20%
+        # Create an overlay and add a white rectangle with 50% opacity
         overlay = frame.copy()
         cv2.rectangle(overlay, rect_start, rect_end, (255, 255, 255), -1)  # Rectangle putih solid
-        alpha = 0.5  # Opacity 20%
+        alpha = 0.5  # Opacity 50%
         frame = cv2.addWeighted(overlay, alpha, frame, 1 - alpha, 0)
 
-        # Tambahkan teks di atas rectangle
+        # Add text on top of the rectangle
         cv2.putText(frame, text, (x_position, y_position), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 1, cv2.LINE_AA)
         y_position += 20
 
