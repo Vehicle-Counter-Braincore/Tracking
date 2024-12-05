@@ -5,7 +5,7 @@ from ultralytics import YOLO
 from tracker import*
 
 # Initialize model and tracker
-model = YOLO('E:\Project\Vehicle Counter\Best.pt')
+model = YOLO('Best.pt')
 tracker = Tracker()
 
 class_names = ["Motorcycle", "Car", "Bus", "Truck", "background"]
