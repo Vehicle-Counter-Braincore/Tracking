@@ -15,4 +15,4 @@ Notes:
 - Specify the path to your YOLO model using the --model_path argument.
 
 ## Example Output
-You can see the output video through this link https://drive.google.com/file/d/1f3tUvj7vKtoEJsuhdrVV3tnsgihIgVz6/view?usp=sharing
+You can see the output video through this [Google Drive Link](https://drive.google.com/file/d/1f3tUvj7vKtoEJsuhdrVV3tnsgihIgVz6/view?usp=sharing)
